@@ -94,25 +94,25 @@ export default function OptIn() {
               that patients commit to upfront. No new modalities, no new certifications.
             </p>
 
-            <dl className="mt-8 flex flex-wrap gap-3 text-sm">
+            <dl className="mt-8 mb-8 flex flex-wrap gap-3 text-sm">
               <div className="glass flex items-center gap-2.5 rounded-full px-4 py-2">
                 <CalendarDays className="h-4 w-4 text-white/60" aria-hidden="true" />
                 <dt className="sr-only">Date</dt>
                 <dd className="font-medium text-white">{EVENT.dateLabel}</dd>
               </div>
-              <div className="glass flex items-center gap-2.5 rounded-full px-4 py-2">
+              <div className="glass flex  items-center gap-2.5 rounded-full px-4 py-2">
                 <Clock className="h-4 w-4 text-white/60" aria-hidden="true" />
                 <dt className="sr-only">Time</dt>
                 <dd className="font-medium text-white">9:00 to 10:30 PM ET</dd>
               </div>
             </dl>
 
-            <VideoPlaceholder
-              className="mt-10"
-              caption="A 2-minute look at what we’ll cover on the training."
-              duration="2:14"
-            />
-
+       <VideoPlaceholder
+  caption="Watch the full webinar"
+  duration="12:45"
+  coverImage="/images/webinar-cover.png"
+  videoUrl="/videos/dog.mp4"
+/>
             <SaveSeatButton mobileOnly className="mt-8 w-full sm:w-auto" />
           </section>
 
