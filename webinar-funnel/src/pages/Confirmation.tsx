@@ -71,12 +71,13 @@ export default function Confirmation() {
           </p>
         </div>
 
-        <VideoPlaceholder
-          className="mx-auto mt-12 max-w-3xl"
-          caption="Orientation: what to expect and how to prepare."
-          duration="4:00"
-        />
-
+     <VideoPlaceholder
+  className="mx-auto mt-12 max-w-3xl"
+  caption="Orientation: what to expect and how to prepare."
+  duration="4:00"
+   coverImage="/images/webinar-cover.png"
+  videoUrl="/videos/dog.mp4"
+/>
         {/* Steps */}
         <section className="mx-auto mt-24 max-w-3xl" aria-labelledby="steps-heading">
           <h2

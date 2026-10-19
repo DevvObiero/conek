@@ -201,13 +201,20 @@ export default function OptIn() {
               >
                 HN
               </div>
-              <div>
-                <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">Your host: Dr. Host Name</h2>
-                <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink/55">
-                  Replace this with the host’s short bio: years in practice, the clinic they built, and why they moved to
-                  program-based care. Two or three sentences is plenty.
-                </p>
-              </div>
+            
+<div>
+  <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">
+    Your host: Dr. [Name]
+  </h2>
+  <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink/55">
+    Dr. [Name] is a [chiropractor] and the owner of [Clinic Name] in
+    [City]. After [10] years of fighting insurance reimbursements,
+    [she] moved [her] clinic to cash-based care programs and never
+    looked back. On this training, [she] will show you the exact
+    model [she] uses.
+  </p>
+</div>
+
             </section>
 
             <section>
