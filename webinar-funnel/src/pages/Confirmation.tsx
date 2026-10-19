@@ -1,38 +1,56 @@
+import type { ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Check, Mail, CalendarPlus, ClipboardList, Radio, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight, CalendarDays, Check, Clock } from 'lucide-react';
 import Brand from '../components/Brand';
 import ThemeToggle from '../components/ThemeToggle';
-import Countdown from '../components/Countdown';
 import CalendarButtons from '../components/CalendarButtons';
-import VideoPlaceholder from '../components/VideoPlaceholder';
-import Testimonials from '../components/Testimonials';
+import VideoBlock from '../components/VideoBlock';
+import ResultCards, { CONFIRM_RESULTS } from '../components/ResultCards';
+import TestimonialVideos from '../components/TestimonialVideos';
+import { CalendarInviteExample, ZoomConfirmationExample } from '../components/ExampleImages';
 import Footer from '../components/Footer';
-import { EVENT } from '../lib/event';
+import { EVENT, LINKS, TEXT_NUMBER, VIDEOS } from '../lib/event';
 
-const PRECALL_FORM_URL: string = import.meta.env.VITE_PRECALL_FORM_URL || '#';
+const h2 = 'font-display text-[28px] font-extrabold leading-[1.1] sm:text-[38px]';
 
-const STEPS = [
+function Step({ n, title, children }: { n: number; title: string; children: ReactNode }) {
+  return (
+    <section className="flex flex-col items-center gap-3.5 text-center" aria-labelledby={`step-${n}`}>
+      <span className="rounded-full border border-tag-line bg-tag px-4 py-1.5 text-[13px] font-bold tracking-[0.1em] text-tag-ink">
+        STEP {n} OF 4
+      </span>
+      <h2 id={`step-${n}`} className={h2}>
+        {title}
+      </h2>
+      {children}
+    </section>
+  );
+}
+
+const NOTES = [
   {
-    icon: Mail,
-    title: 'Check your email',
-    body: 'Your join link is on its way. If it isn’t in your inbox within 5 minutes, check Promotions or Spam and move it to your primary inbox.',
+    title: 'Your join link is in your email',
+    body: "It's in the confirmation email and the calendar invite. It won't be in our texts.",
   },
   {
-    icon: CalendarPlus,
-    title: 'Add it to your calendar',
-    body: 'Block 9:00 to 10:30 PM ET on Wednesday, November 4 so nothing gets booked over it.',
-    action: { label: 'Add to calendar', href: '#calendar' },
+    title: 'Save this number',
+    body: `${TEXT_NUMBER}. Our reminders come from it, so you'll know it's us.`,
+  },
+  { title: 'Join from a laptop', body: "Not your phone. You'll want to see the screen." },
+];
+
+const COME_READY = [
+  {
+    title: 'Bring three things',
+    body: "The treatments you offer, what you charge for them now, and whoever runs your marketing if it isn't you.",
   },
   {
-    icon: ClipboardList,
-    title: 'Fill out the pre-call form',
-    body: 'Two minutes on your clinic and your most common case. We use it to tailor examples during the live session.',
-    action: { label: 'Open the pre-call form', href: PRECALL_FORM_URL, external: true },
+    title: 'Check your inbox today',
+    body: "Your first lesson is already there, so you're not starting from zero on Wednesday.",
   },
   {
-    icon: Radio,
-    title: 'Show up live',
-    body: 'Join 5 minutes early from a laptop if you can, with something to take notes on. The Q&A is only available live.',
+    title: 'Stay to the end',
+    body: "That's when the Cash Program Template, the Numbers Cheat Sheet and the New-Lead Call Script go out. People in the room only.",
   },
 ];
 
@@ -42,114 +60,115 @@ export default function Confirmation() {
 
   return (
     <div className="min-h-screen">
-      <header className="px-4 pt-4 sm:px-6 sm:pt-6">
-        <div className="glass-strong mx-auto flex max-w-6xl items-center justify-between rounded-full py-3 pl-5 pr-3 sm:pl-6">
-          <Brand />
-          <div className="flex items-center gap-2">
-            <span className="glass hidden rounded-full px-3.5 py-1.5 text-[13px] text-ink/70 sm:inline-block">
-              {EVENT.dateLabel}
-            </span>
-            <ThemeToggle />
-          </div>
-        </div>
+      <header className="mx-auto flex max-w-[920px] items-center justify-between gap-4 px-4 pt-5 sm:px-6 sm:pt-8">
+        <Brand />
+        <ThemeToggle />
       </header>
 
-      <main className="px-5 py-14 sm:px-8 sm:py-20">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="glass inline-flex items-center gap-2 rounded-full py-1.5 pl-1.5 pr-4 text-[13px] text-ink/80">
-            <span className="flex h-5 w-5 items-center justify-center rounded-full bg-ink text-canvas">
-              <Check className="h-3 w-3" strokeWidth={3} aria-hidden="true" />
-            </span>
-            Registration confirmed
+      <main className="mx-auto flex max-w-[920px] flex-col gap-14 px-4 pt-8 sm:px-6">
+        {/* Top */}
+        <div className="flex flex-col items-center gap-[18px] text-center">
+          <span className="flex h-16 w-16 items-center justify-center rounded-full border border-tag-line bg-tag">
+            <Check className="h-8 w-8 text-accent-ink" strokeWidth={3} aria-hidden="true" />
           </span>
-          <h1 className="mt-7 text-[2.5rem] font-semibold leading-[1.02] tracking-[-0.05em] text-ink sm:text-[3.5rem]">
-            {firstName ? `You’re in, ${firstName}.` : 'You’re in.'} Now watch this short video.
+          <h1 className="font-display text-[34px] font-extrabold leading-[1.05] tracking-[-0.02em] sm:text-[52px]">
+            {firstName ? `You're Registered, ${firstName}!` : "You're Registered!"}
           </h1>
-          <p className="mx-auto mt-6 max-w-[54ch] text-lg leading-relaxed text-ink/55">
-            It explains how to get the most from the training on {EVENT.dateLabel} at {EVENT.timeLabel}, and what to have
-            ready before we go live.
+          <p className="glass-navy flex flex-wrap items-center justify-center gap-2 rounded-full px-[22px] py-[11px] text-base font-bold">
+            <CalendarDays className="h-4 w-4" aria-hidden="true" />
+            <span>{EVENT.shortDate}</span>
+            <span className="text-tag-line" aria-hidden="true">
+              •
+            </span>
+            <Clock className="h-4 w-4" aria-hidden="true" />
+            <span>{EVENT.time} — Live</span>
           </p>
         </div>
 
-     <VideoPlaceholder
-  className="mx-auto mt-12 max-w-3xl"
-  caption="Orientation: what to expect and how to prepare."
-  duration="4:00"
-   coverImage="/images/webinar-cover.png"
-  videoUrl="/videos/dog.mp4"
-/>
-        {/* Steps */}
-        <section className="mx-auto mt-24 max-w-3xl" aria-labelledby="steps-heading">
-          <h2
-            id="steps-heading"
-            className="text-center text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-[2.5rem]"
-          >
-            Four steps before November 4
-          </h2>
-          <ol className="relative mt-12 space-y-4">
-            <span
-              className="absolute bottom-10 left-6 top-10 w-px bg-gradient-to-b from-ink/30 via-ink/10 to-transparent sm:left-7"
-              aria-hidden="true"
-            />
-            {STEPS.map((step, i) => {
-              const Icon = step.icon;
-              return (
-                <li key={step.title} className="relative flex gap-4 sm:gap-6">
-                  <span className="relative z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-ink text-lg font-semibold tracking-[-0.03em] text-canvas shadow-[0_0_0_6px_var(--canvas)] sm:h-14 sm:w-14 sm:text-xl">
-                    {i + 1}
-                  </span>
-                  <div className="glass flex-1 rounded-[1.5rem] p-5 text-left sm:p-6">
-                    <div className="flex items-center gap-2.5">
-                      <Icon className="h-[18px] w-[18px] text-ink/60" aria-hidden="true" />
-                      <h3 className="text-lg font-semibold tracking-[-0.02em] text-ink">{step.title}</h3>
-                    </div>
-                    <p className="mt-2 text-[15px] leading-relaxed text-ink/55">{step.body}</p>
-                    {step.action && (
-                      <a
-                        href={step.action.href}
-                        {...(step.action.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        className="glass mt-4 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium text-ink transition hover:bg-ink/10"
-                      >
-                        {step.action.label}
-                        {step.action.external && <ArrowUpRight className="h-4 w-4" aria-hidden="true" />}
-                      </a>
-                    )}
-                  </div>
-                </li>
-              );
-            })}
-          </ol>
-        </section>
+        {/* Step 1 */}
+        <Step n={1} title="Watch This First">
+          <VideoBlock className="w-full" note="[CONFIRMATION VIDEO · about 5 min · with chapters]" embedUrl={VIDEOS.confirmation} />
+          <p className="text-lg font-bold leading-[1.4] text-accent-strong">
+            Important: add the workshop to your calendar now. Your join link is in the invite.
+          </p>
+        </Step>
 
-        {/* Calendar */}
-        <section
-          id="calendar"
-          className="glass-strong mx-auto mt-24 max-w-3xl scroll-mt-8 rounded-[2rem] p-7 sm:p-10"
-          aria-labelledby="calendar-heading"
-        >
-          <h2 id="calendar-heading" className="text-2xl font-semibold tracking-[-0.03em] text-ink">
-            Add the training to your calendar
-          </h2>
-          <p className="mt-2 text-[15px] text-ink/55">{EVENT.dateLabel}, 9:00 to 10:30 PM ET. Online.</p>
-          <div className="mt-7">
+        {/* Step 2 */}
+        <Step n={2} title="Confirm Your Workshop Details">
+          <div id="calendar" className="glass flex w-full scroll-mt-6 flex-col items-center gap-4 rounded-2xl px-4 py-7 sm:px-6">
+            <p className="text-[17px] text-ink-2">Your calendar invite includes the Zoom link for the workshop.</p>
+            <p className="text-[19px] font-bold leading-[1.35] sm:text-[21px]">
+              The workshop is on {EVENT.longDate} at {EVENT.time}
+            </p>
             <CalendarButtons />
           </div>
-          <div className="mt-9 border-t border-ink/10 pt-7">
-            <p className="mb-4 text-[13px] text-ink/50">Starts in</p>
-            <Countdown size="lg" />
-          </div>
-        </section>
 
-        {/* Testimonials */}
-        <section className="mx-auto mt-28 max-w-6xl" aria-labelledby="testimonials-heading">
-          <h2
-            id="testimonials-heading"
-            className="text-center text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-[2.5rem]"
-          >
-            Clinic owners who made the switch
-          </h2>
-          <div className="mt-12">
-            <Testimonials />
+          <div className="grid w-full gap-4 text-left md:grid-cols-2">
+            <div className="glass flex flex-col gap-2.5 rounded-2xl p-[22px]">
+              <h3 className="font-display text-[21px] font-extrabold">Calendar Invite</h3>
+              <p className="text-base leading-[1.45] text-ink-2">
+                Accept the invitation so the workshop and join link stay on your calendar.
+              </p>
+              <CalendarInviteExample />
+            </div>
+            <div className="glass flex flex-col gap-2.5 rounded-2xl p-[22px]">
+              <h3 className="font-display text-[21px] font-extrabold">Zoom Confirmation</h3>
+              <p className="text-base leading-[1.45] text-ink-2">Use the Zoom link in your invitation to join the live workshop.</p>
+              <ZoomConfirmationExample />
+            </div>
+          </div>
+
+          <div className="grid w-full gap-4 text-left md:grid-cols-3">
+            {NOTES.map((n) => (
+              <div key={n.title} className="glass rounded-[14px] p-5">
+                <h3 className="font-display text-[19px] font-extrabold">{n.title}</h3>
+                <p className="mt-1.5 text-base leading-[1.45] text-ink-2">{n.body}</p>
+              </div>
+            ))}
+          </div>
+        </Step>
+
+        {/* Step 3 */}
+        <Step n={3} title="Come Ready">
+          <div className="grid w-full gap-4 text-left md:grid-cols-3">
+            {COME_READY.map((c) => (
+              <div key={c.title} className="glass-navy rounded-[14px] p-[22px]">
+                <h3 className="font-display text-[21px] font-extrabold">{c.title}</h3>
+                <p className="mt-2 text-base leading-[1.5] text-on-navy-2">{c.body}</p>
+              </div>
+            ))}
+          </div>
+        </Step>
+
+        {/* Step 4 */}
+        <Step n={4} title="What Happens When Doctors Run This">
+          <div className="w-full">
+            <ResultCards items={CONFIRM_RESULTS} columns={3} />
+          </div>
+          <h3 className="mt-6 font-display text-2xl font-extrabold sm:text-[28px]">Hear It From the Clinics We Work With</h3>
+          <TestimonialVideos />
+        </Step>
+
+        {/* See more (Christos to confirm this block stays) */}
+        <section className="flex flex-col items-center gap-4 text-center">
+          <h2 className="font-display text-2xl font-extrabold sm:text-[28px]">See More of Us Before Wednesday</h2>
+          <div className="flex flex-wrap justify-center gap-3">
+            <a
+              href={LINKS.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-display text-lg font-extrabold"
+            >
+              YouTube <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+            <a
+              href={LINKS.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="glass inline-flex items-center gap-2 rounded-full px-7 py-3.5 font-display text-lg font-extrabold"
+            >
+              Instagram <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </a>
           </div>
         </section>
       </main>

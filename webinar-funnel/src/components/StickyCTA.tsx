@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react';
-import { ArrowDown } from 'lucide-react';
 import Countdown from './Countdown';
-import { FORM_ID, scrollToForm } from './SaveSeatButton';
+import { FORM_ID, goToForm } from './SaveSeatButton';
 
-/** IDs of elements that, while on screen, make the bar unnecessary. */
+/** While any of these is on screen, the bar stays hidden. */
 const WATCH_IDS = ['hero-cta', FORM_ID];
 
-/**
- * Mobile-only bar fixed to the bottom of the screen.
- * Hidden while the hero button or the form is visible, shown everywhere else.
- */
+/** Phone-only bar fixed to the bottom of the screen: countdown + Save My Seat. */
 export default function StickyCTA() {
   const [visible, setVisible] = useState(false);
 
@@ -21,7 +17,7 @@ export default function StickyCTA() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((e) => onScreen.set(e.target, e.isIntersecting));
       const anyVisible = [...onScreen.values()].some(Boolean);
-      setVisible(!anyVisible && window.scrollY > 200);
+      setVisible(!anyVisible);
     });
 
     targets.forEach((t) => observer.observe(t));
@@ -36,23 +32,22 @@ export default function StickyCTA() {
         visible ? 'translate-y-0' : 'translate-y-[120%]'
       }`}
     >
-      {/* Solid-ish base under the glass so busy content behind the bar can't hurt readability */}
-      <div className="mx-auto max-w-lg rounded-full bg-canvas/80">
-        <div className="glass-strong flex items-center justify-between gap-3 rounded-full py-2 pl-5 pr-2">
-          <p className="min-w-0 text-[13px] leading-tight text-ink/60">
-            Starts in
-            <Countdown size="inline" className="block text-sm" />
+      {/* Solid-ish base so busy content behind the bar can't hurt readability */}
+      <div className="mx-auto max-w-lg rounded-full bg-canvas/85">
+        <div className="glass flex items-center justify-between gap-3 rounded-full py-2 pl-5 pr-2">
+          <p className="min-w-0 text-[11px] font-bold leading-tight tracking-[0.08em] text-ink-3">
+            STARTS IN
+            <Countdown size="inline" className="block text-sm tracking-normal text-ink" />
           </p>
           <a
             href={`#${FORM_ID}`}
             onClick={(e) => {
               e.preventDefault();
-              scrollToForm();
+              goToForm();
             }}
-            className="btn-primary inline-flex shrink-0 items-center gap-1.5 rounded-full px-5 py-3 text-sm font-semibold active:scale-[0.98]"
+            className="btn-glass inline-flex shrink-0 items-center rounded-full px-5 py-3 font-display text-base font-extrabold"
           >
-            Save my seat
-            <ArrowDown className="h-4 w-4" aria-hidden="true" />
+            Save My Seat
           </a>
         </div>
       </div>

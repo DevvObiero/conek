@@ -1,131 +1,219 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: "Inter Tight", "Inter", ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Semantic colors: `ink` is text/foreground, `canvas` is the page.
-   They swap between themes, so `text-ink/60` or `bg-ink text-canvas` work in both. */
+/* Semantic colours. Each one swaps between light (brand default) and dark mode. */
 @theme inline {
-  --color-ink: var(--ink);
   --color-canvas: var(--canvas);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-ink-3: var(--ink-3);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-strong: var(--accent-strong);
+  --color-tag: var(--tag);
+  --color-tag-line: var(--tag-line);
+  --color-tag-ink: var(--tag-ink);
+  --color-navy: var(--navy);
+  --color-on-navy: var(--on-navy);
+  --color-on-navy-2: var(--on-navy-2);
+  --color-line: var(--line);
+  --color-soft: var(--soft);
+  --color-good: var(--good);
   --color-danger: var(--danger);
 }
 
-/* ---------- Theme variables ---------- */
-
+/* ---------- Light mode: Conek brand (default) ---------- */
 :root,
-[data-theme="dark"] {
-  color-scheme: dark;
-  --canvas: #000000;
-  --ink: #ffffff;
-  --danger: #f87171;
-  --glow: rgb(255 255 255 / 0.6);
-
-  --orb-1: rgb(255 255 255 / 0.13);
-  --orb-2: rgb(212 212 212 / 0.09);
-  --orb-3: rgb(255 255 255 / 0.07);
-
-  --glass-hi: rgb(255 255 255 / 0.12);
-  --glass-a: rgb(255 255 255 / 0.08);
-  --glass-b: rgb(255 255 255 / 0.02);
-  --glass-border: rgb(255 255 255 / 0.11);
-  --glass-edge: rgb(255 255 255 / 0.2);
-  --glass-shadow: 0 24px 60px -28px rgb(0 0 0 / 0.9);
-
-  --glass-strong-hi: rgb(255 255 255 / 0.18);
-  --glass-strong-a: rgb(255 255 255 / 0.11);
-  --glass-strong-b: rgb(255 255 255 / 0.03);
-  --glass-strong-border: rgb(255 255 255 / 0.16);
-  --glass-strong-edge: rgb(255 255 255 / 0.32);
-  --glass-strong-shadow: 0 40px 90px -30px rgb(0 0 0 / 0.95);
-
-  --field-bg: rgb(255 255 255 / 0.04);
-  --field-border: rgb(255 255 255 / 0.12);
-  --field-inset: rgb(0 0 0 / 0.35);
-
-  --btn-top: #ffffff;
-  --btn-bottom: #e9e9e9;
-  --btn-text: #000000;
-  --btn-edge: rgb(255 255 255 / 1);
-  --btn-glow: rgb(255 255 255 / 0.35);
-
-  --option-bg: #111111;
-}
-
 [data-theme="light"] {
   color-scheme: light;
-  --canvas: #e9e9ec;
-  --ink: #0a0a0a;
+  --canvas: #f1f5f9;
+  --ink: #0f172a;
+  --ink-2: #2b394c;
+  --ink-3: #3b4a5e;
+  --muted: #5b6779;
+  --accent: #155eef;
+  --accent-ink: #155eef;
+  --accent-strong: #1e3a8a;
+  --tag: #dbeafe;
+  --tag-line: #93b4f5;
+  --tag-ink: #1e3a8a;
+  --navy: #0f172a;
+  --on-navy: #ffffff;
+  --on-navy-2: #d5dce6;
+  --line: #d9dee5;
+  --soft: rgb(241 245 249 / 0.78);
+  --good: rgb(219 234 254 / 0.65);
   --danger: #dc2626;
-  --glow: rgb(0 0 0 / 0.25);
 
-  --orb-1: rgb(255 255 255 / 0.95);
-  --orb-2: rgb(0 0 0 / 0.09);
-  --orb-3: rgb(255 255 255 / 0.8);
+  --glow-a: rgb(21 94 239 / 0.13);
+  --glow-b: rgb(219 234 254 / 0.95);
+  --grid: rgb(15 23 42 / 0.045);
 
-  --glass-hi: rgb(255 255 255 / 0.7);
-  --glass-a: rgb(255 255 255 / 0.55);
-  --glass-b: rgb(255 255 255 / 0.25);
-  --glass-border: rgb(255 255 255 / 0.75);
-  --glass-edge: rgb(255 255 255 / 0.95);
-  --glass-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.06), 0 20px 50px -24px rgb(0 0 0 / 0.18);
+  --g-a: rgb(255 255 255 / 0.86);
+  --g-b: rgb(255 255 255 / 0.66);
+  --g-border: rgb(255 255 255 / 0.95);
+  --g-hair: rgb(15 23 42 / 0.08);
+  --g-edge: rgb(255 255 255 / 1);
+  --g-shadow: 0 14px 34px -14px rgb(15 23 42 / 0.16);
 
-  --glass-strong-hi: rgb(255 255 255 / 0.85);
-  --glass-strong-a: rgb(255 255 255 / 0.65);
-  --glass-strong-b: rgb(255 255 255 / 0.35);
-  --glass-strong-border: rgb(255 255 255 / 0.9);
-  --glass-strong-edge: rgb(255 255 255 / 1);
-  --glass-strong-shadow: 0 0 0 0.5px rgb(0 0 0 / 0.07), 0 32px 80px -30px rgb(0 0 0 / 0.25);
+  --n-a: rgb(15 23 42 / 0.96);
+  --n-b: rgb(15 23 42 / 0.9);
+  --n-border: rgb(255 255 255 / 0.06);
+  --n-edge: rgb(255 255 255 / 0.1);
+  --n-tile: rgb(255 255 255 / 0.08);
 
-  --field-bg: rgb(255 255 255 / 0.6);
-  --field-border: rgb(0 0 0 / 0.1);
-  --field-inset: rgb(0 0 0 / 0.04);
-
-  --btn-top: #262626;
-  --btn-bottom: #000000;
-  --btn-text: #ffffff;
-  --btn-edge: rgb(255 255 255 / 0.18);
-  --btn-glow: rgb(0 0 0 / 0.35);
-
-  --option-bg: #ffffff;
+  --f-bg: rgb(255 255 255 / 0.92);
+  --f-border: #aeb7c4;
 }
 
-/* ---------- Liquid glass surfaces ---------- */
+/* ---------- Dark mode: navy ---------- */
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0f172a;
+  --ink: #f1f5f9;
+  --ink-2: #cbd5e1;
+  --ink-3: #a7b3c4;
+  --muted: #8c99ab;
+  --accent: #155eef;
+  --accent-ink: #6e9bff;
+  --accent-strong: #93b4f5;
+  --tag: rgb(21 94 239 / 0.2);
+  --tag-line: rgb(147 180 245 / 0.35);
+  --tag-ink: #dbeafe;
+  --navy: #0a1120;
+  --on-navy: #ffffff;
+  --on-navy-2: #b8c2d0;
+  --line: rgb(255 255 255 / 0.1);
+  --soft: rgb(255 255 255 / 0.045);
+  --good: rgb(21 94 239 / 0.16);
+  --danger: #f87171;
 
+  --glow-a: rgb(21 94 239 / 0.3);
+  --glow-b: rgb(30 58 138 / 0.4);
+  --grid: rgb(255 255 255 / 0.04);
+
+  --g-a: rgb(255 255 255 / 0.08);
+  --g-b: rgb(255 255 255 / 0.03);
+  --g-border: rgb(255 255 255 / 0.1);
+  --g-hair: transparent;
+  --g-edge: rgb(255 255 255 / 0.14);
+  --g-shadow: 0 24px 60px -28px rgb(0 0 0 / 0.7);
+
+  --n-a: rgb(2 6 23 / 0.72);
+  --n-b: rgb(2 6 23 / 0.6);
+  --n-border: rgb(147 180 245 / 0.14);
+  --n-edge: rgb(255 255 255 / 0.08);
+  --n-tile: rgb(255 255 255 / 0.05);
+
+  --f-bg: rgb(255 255 255 / 0.05);
+  --f-border: rgb(255 255 255 / 0.18);
+}
+
+/* ---------- Glass surfaces ---------- */
+
+/* Frosted card (white cards in the mockup) */
 @utility glass {
-  background:
-    radial-gradient(120% 90% at 0% 0%, var(--glass-hi), transparent 55%),
-    linear-gradient(160deg, var(--glass-a), var(--glass-b));
-  backdrop-filter: blur(24px) saturate(150%);
-  -webkit-backdrop-filter: blur(24px) saturate(150%);
-  border: 1px solid var(--glass-border);
-  box-shadow: inset 0 1px 0 var(--glass-edge), var(--glass-shadow);
+  background: linear-gradient(160deg, var(--g-a), var(--g-b));
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 1px solid var(--g-border);
+  box-shadow: inset 0 1px 0 var(--g-edge), 0 0 0 1px var(--g-hair), var(--g-shadow);
 }
 
-@utility glass-strong {
-  background:
-    radial-gradient(140% 100% at 0% 0%, var(--glass-strong-hi), transparent 50%),
-    linear-gradient(165deg, var(--glass-strong-a), var(--glass-strong-b));
-  backdrop-filter: blur(40px) saturate(170%);
-  -webkit-backdrop-filter: blur(40px) saturate(170%);
-  border: 1px solid var(--glass-strong-border);
-  box-shadow: inset 0 1px 0 var(--glass-strong-edge), var(--glass-strong-shadow);
+/* Frosted card with the mockup's 2px navy outline (free items block) */
+@utility glass-frame {
+  background: linear-gradient(160deg, var(--g-a), var(--g-b));
+  backdrop-filter: blur(18px) saturate(160%);
+  -webkit-backdrop-filter: blur(18px) saturate(160%);
+  border: 2px solid var(--ink);
+  box-shadow: inset 0 1px 0 var(--g-edge), var(--g-shadow);
 }
 
-@utility btn-primary {
-  background: linear-gradient(180deg, var(--btn-top) 0%, var(--btn-bottom) 100%);
-  color: var(--btn-text);
+/* Dark navy glass (toolkit, closing block, countdown boxes, form bar) */
+@utility glass-navy {
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgb(21 94 239 / 0.2), transparent 55%),
+    linear-gradient(160deg, var(--n-a), var(--n-b));
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+  border: 1px solid var(--n-border);
+  box-shadow: inset 0 1px 0 var(--n-edge), 0 18px 40px -20px rgb(15 23 42 / 0.45);
+  color: var(--on-navy);
+}
+
+/* Tile inside a navy block */
+@utility glass-tile {
+  background: var(--n-tile);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.06);
+}
+
+/* Blue liquid-glass button: solid enough for white text, glossy highlight on top */
+@utility btn-glass {
+  color: #ffffff;
+  background:
+    radial-gradient(120% 120% at 50% -30%, rgb(255 255 255 / 0.42), transparent 52%),
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--accent) 82%, white) 0%,
+      var(--accent) 50%,
+      color-mix(in oklab, var(--accent) 85%, black) 100%
+    );
+  border: 1px solid rgb(255 255 255 / 0.3);
   box-shadow:
-    inset 0 1px 0 var(--btn-edge),
-    inset 0 -2px 6px rgb(0 0 0 / 0.08),
-    0 10px 30px -10px var(--btn-glow);
+    inset 0 1px 0 rgb(255 255 255 / 0.55),
+    inset 0 -4px 10px rgb(10 35 110 / 0.35),
+    0 12px 28px -10px color-mix(in oklab, var(--accent) 70%, transparent);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  text-shadow: 0 1px 1px rgb(10 35 110 / 0.35);
+  transition: filter 0.2s, transform 0.15s;
+  &:hover {
+    filter: brightness(1.07) saturate(1.05);
+  }
+  &:active {
+    transform: scale(0.985);
+  }
 }
 
+/* Form fields */
 @utility glass-field {
-  background: var(--field-bg);
-  border: 1px solid var(--field-border);
-  box-shadow: inset 0 1px 2px var(--field-inset);
+  background: var(--f-bg);
+  border: 1px solid var(--f-border);
+  box-shadow: inset 0 1px 2px rgb(15 23 42 / 0.06);
+}
+
+/* Pulse used when a "Save My Seat" button points at the form */
+@keyframes seat-flash {
+  0% {
+    box-shadow: 0 0 0 0 rgb(21 94 239 / 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 16px rgb(21 94 239 / 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgb(21 94 239 / 0);
+  }
+}
+
+.form-flash {
+  animation: seat-flash 1.1s ease-out 2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .form-flash {
+    animation: none;
+    outline: 3px solid var(--accent);
+    outline-offset: 4px;
+  }
 }
 
 /* ---------- Base ---------- */
@@ -134,33 +222,25 @@ html {
   scroll-behavior: smooth;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-}
-
 body {
   @apply bg-canvas font-sans text-ink antialiased;
-  font-feature-settings: "ss01", "cv11";
 }
 
 ::selection {
-  background: var(--ink);
-  color: var(--canvas);
+  background: var(--accent);
+  color: #fff;
 }
 
 :focus-visible {
-  outline: 2px solid var(--ink);
+  outline: 2px solid var(--accent);
   outline-offset: 3px;
 }
 
 select option {
-  background: var(--option-bg);
+  background: var(--canvas);
   color: var(--ink);
 }
 
-/* Crossfade when the theme switches (browsers with View Transitions) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
   animation-duration: 0.35s;

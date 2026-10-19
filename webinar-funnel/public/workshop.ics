@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Conek Media//In-House Marketing Workshop//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:in-house-marketing-workshop-20261105T020000Z@conekmedia.com
+DTSTAMP:20261019T000000Z
+DTSTART:20261105T020000Z
+DTEND:20261105T033000Z
+SUMMARY:The In-House Marketing Workshop (Live)
+DESCRIPTION:The In-House Marketing Workshop\, live. Your Zoom join link is in your confirmation email and calendar invite. Join from a laptop a few minutes early.
+LOCATION:Online (Zoom). Your join link is in your confirmation email.
+BEGIN:VALARM
+TRIGGER:-PT30M
+ACTION:DISPLAY
+DESCRIPTION:The workshop starts in 30 minutes
+END:VALARM
+END:VEVENT
+END:VCALENDAR

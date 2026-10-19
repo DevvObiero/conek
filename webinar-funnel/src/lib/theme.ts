@@ -1,7 +1,6 @@
 /**
- * Theme store. The initial theme is set by the inline script in index.html
- * (before React loads, so there is no flash). This module reads/writes it,
- * persists the choice, and keeps every toggle instance in sync.
+ * Theme store. index.html sets the theme before first paint (light unless the
+ * visitor chose dark). This module reads/writes it and keeps toggles in sync.
  */
 import { useSyncExternalStore } from 'react';
 
@@ -9,11 +8,10 @@ export type Theme = 'light' | 'dark';
 
 const STORAGE_KEY = 'theme';
 const listeners = new Set<() => void>();
-
-const META_COLOR: Record<Theme, string> = { dark: '#000000', light: '#e9e9ec' };
+const META_COLOR: Record<Theme, string> = { light: '#F1F5F9', dark: '#0F172A' };
 
 function read(): Theme {
-  return document.documentElement.dataset.theme === 'light' ? 'light' : 'dark';
+  return document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
 }
 
 function apply(theme: Theme) {
@@ -28,24 +26,10 @@ export function setTheme(theme: Theme) {
   } catch {
     /* storage unavailable: theme still applies for this visit */
   }
-
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const doc = document as Document & { startViewTransition?: (cb: () => void) => unknown };
   if (doc.startViewTransition && !reduceMotion) doc.startViewTransition(() => apply(theme));
   else apply(theme);
-}
-
-// Follow the OS setting until the visitor picks a theme themselves.
-if (typeof window !== 'undefined') {
-  window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
-    let stored: string | null = null;
-    try {
-      stored = localStorage.getItem(STORAGE_KEY);
-    } catch {
-      /* ignore */
-    }
-    if (!stored) apply(e.matches ? 'light' : 'dark');
-  });
 }
 
 function subscribe(cb: () => void) {
@@ -54,6 +38,6 @@ function subscribe(cb: () => void) {
 }
 
 export function useTheme() {
-  const theme = useSyncExternalStore(subscribe, read, () => 'dark' as Theme);
+  const theme = useSyncExternalStore(subscribe, read, () => 'light' as Theme);
   return { theme, setTheme, toggle: () => setTheme(theme === 'dark' ? 'light' : 'dark') };
 }

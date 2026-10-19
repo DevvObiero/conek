@@ -17,14 +17,14 @@ function getRemaining(target: number): Remaining {
 const pad = (n: number) => String(n).padStart(2, '0');
 
 type CountdownProps = {
-  /** Defaults to Wed Nov 4, 2026, 9:00 PM ET. */
+  /** Defaults to Wed Nov 4, 2026, 9:00 PM Eastern. */
   target?: Date;
-  /** sm: header tiles, lg: confirmation tiles, inline: one line of text (mobile hero + sticky bar) */
-  size?: 'sm' | 'lg' | 'inline';
+  /** boxes: the four navy boxes. inline: one line of text (sticky bar). */
+  size?: 'boxes' | 'inline';
   className?: string;
 };
 
-export default function Countdown({ target = EVENT.start, size = 'sm', className = '' }: CountdownProps) {
+export default function Countdown({ target = EVENT.start, size = 'boxes', className = '' }: CountdownProps) {
   const targetMs = target.getTime();
   const [time, setTime] = useState(() => getRemaining(targetMs));
 
@@ -39,59 +39,38 @@ export default function Countdown({ target = EVENT.start, size = 'sm', className
   }, [targetMs]);
 
   if (time.total === 0) {
-    if (size === 'inline') return <span className={`font-semibold text-ink ${className}`}>live now</span>;
-    return (
-      <p className={`text-base font-medium text-ink ${className}`}>
-        The training is live now. Check your email for the join link.
-      </p>
-    );
+    if (size === 'inline') return <span className={`font-bold ${className}`}>Live now</span>;
+    return <p className={`text-lg font-bold ${className}`}>The workshop is live now. Your join link is in your email.</p>;
   }
 
   const units = [
-    { label: 'Days', short: 'd', value: String(time.days) },
-    { label: 'Hours', short: 'h', value: pad(time.hours) },
-    { label: 'Minutes', short: 'm', value: pad(time.minutes) },
-    { label: 'Seconds', short: 's', value: pad(time.seconds) },
+    { label: 'DAYS', short: 'd', value: pad(time.days) },
+    { label: 'HOURS', short: 'h', value: pad(time.hours) },
+    { label: 'MINS', short: 'm', value: pad(time.minutes) },
+    { label: 'SECS', short: 's', value: pad(time.seconds) },
   ];
 
   if (size === 'inline') {
     return (
-      <span className={`whitespace-nowrap font-semibold tabular-nums text-ink ${className}`}>
+      <span className={`whitespace-nowrap font-bold tabular-nums ${className}`}>
         <span className="sr-only">
           {time.days} days, {time.hours} hours and {time.minutes} minutes
         </span>
-        <span aria-hidden="true">
-          {units.map((u) => `${u.value}${u.short}`).join(' ')}
-        </span>
+        <span aria-hidden="true">{units.map((u) => `${u.value}${u.short}`).join(' ')}</span>
       </span>
     );
   }
-
-  const lg = size === 'lg';
 
   return (
     <div className={className}>
       <span className="sr-only">
         Starts in {time.days} days, {time.hours} hours and {time.minutes} minutes.
       </span>
-      <div className={`flex items-stretch ${lg ? 'gap-2.5 sm:gap-3' : 'gap-1.5'}`} aria-hidden="true">
+      <div className="grid grid-cols-4 gap-2 sm:gap-3" aria-hidden="true">
         {units.map((u) => (
-          <div
-            key={u.label}
-            className={`glass flex flex-col items-center justify-center ${
-              lg ? 'min-w-[4.25rem] rounded-2xl px-3 py-3 sm:min-w-[5.25rem]' : 'min-w-[3.25rem] rounded-xl px-2 py-1.5'
-            }`}
-          >
-            <span
-              className={`font-semibold leading-none tracking-[-0.04em] text-ink tabular-nums ${
-                lg ? 'text-3xl sm:text-[2.5rem]' : 'text-lg'
-              }`}
-            >
-              {u.value}
-            </span>
-            <span className={`text-ink/45 ${lg ? 'mt-2 text-xs' : 'mt-0.5 text-[10px]'}`}>
-              {lg ? u.label : u.short}
-            </span>
+          <div key={u.label} className="glass-navy rounded-lg px-2 py-3 text-center sm:py-3.5">
+            <div className="font-display text-[30px] font-extrabold leading-none tabular-nums sm:text-[40px]">{u.value}</div>
+            <div className="mt-1.5 text-[11px] tracking-[0.08em] text-on-navy-2 sm:text-[13px]">{u.label}</div>
           </div>
         ))}
       </div>
