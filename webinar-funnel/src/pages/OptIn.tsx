@@ -4,8 +4,9 @@ import ThemeToggle from '../components/ThemeToggle';
 import Countdown from '../components/Countdown';
 import Form from '../components/Form';
 import SaveSeatButton from '../components/SaveSeatButton';
+import StickyCTA from '../components/StickyCTA';
 import VideoPlaceholder from '../components/VideoPlaceholder';
-import Testimonials from '../components/Testimonials';
+import Testimonials, { TESTIMONIALS } from '../components/Testimonials';
 import Footer from '../components/Footer';
 import { EVENT } from '../lib/event';
 
@@ -60,50 +61,60 @@ const FAQS = [
   },
 ];
 
+/** Short proof shown above the form on mobile only. Pulls the first testimonial. */
+const PROOF = TESTIMONIALS[0];
+
 const h2 = 'text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-[2.5rem] sm:leading-[1.1]';
 
 export default function OptIn() {
   return (
-    <div className="min-h-screen">
-      {/* Floating glass nav with countdown */}
+    <div className="min-h-screen pb-24 lg:pb-0">
+      {/* Floating glass nav. Mobile: one slim row (logo + toggle). md and up: unchanged, with countdown. */}
       <header className="px-4 pt-4 sm:px-6 sm:pt-6">
-        <div className="glass-strong mx-auto flex max-w-6xl flex-col gap-4 rounded-[1.75rem] px-5 py-4 sm:px-6 md:flex-row md:items-center md:justify-between md:rounded-full md:py-3 md:pl-6 md:pr-3">
+        <div className="glass-strong mx-auto flex max-w-6xl flex-col gap-4 rounded-full py-2.5 pl-5 pr-2.5 sm:pl-6 md:flex-row md:items-center md:justify-between md:py-3 md:pr-3">
           <div className="flex items-center justify-between gap-4">
             <Brand />
             <div className="md:hidden">
               <ThemeToggle />
             </div>
           </div>
-          <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
+          <div className="hidden md:flex md:flex-row md:items-center md:gap-4">
             <p className="text-[13px] text-ink/50">Live training starts in</p>
             <Countdown />
-            <div className="hidden md:block">
-              <ThemeToggle />
-            </div>
+            <ThemeToggle />
           </div>
         </div>
       </header>
 
-      <main className="mx-auto max-w-6xl px-5 py-12 sm:px-8 lg:py-20">
+      <main className="mx-auto max-w-6xl px-5 py-10 sm:px-8 sm:py-12 lg:py-20">
         {/* Mobile: hero → form (≈1/3 down) → long copy. Desktop: copy left, sticky form right. */}
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-14 lg:gap-y-24 xl:gap-x-20">
+        <div className="grid grid-cols-1 gap-10 sm:gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-14 lg:gap-y-24 xl:gap-x-20">
           {/* HERO */}
           <section className="lg:col-start-1 lg:row-start-1">
             <p className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] text-ink/75">
-              <span className="h-1.5 w-1.5 rounded-full bg-ink shadow-[0_0_10px_2px_var(--glow)]" aria-hidden="true" />
+              <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-ink shadow-[0_0_10px_2px_var(--glow)]" aria-hidden="true" />
               Free live training for chiropractors and physical therapists
             </p>
 
-            <h1 className="mt-7 max-w-[16ch] text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.05em] text-ink sm:text-[4rem] lg:text-[4.75rem]">
+            <h1 className="mt-6 max-w-[16ch] text-[2.375rem] font-semibold leading-[1] tracking-[-0.05em] text-ink sm:mt-7 sm:text-[4rem] sm:leading-[0.98] lg:text-[4.75rem]">
               Turn your treatments into high-ticket cash programs
             </h1>
 
-            <p className="mt-7 max-w-[54ch] text-lg leading-relaxed text-ink/60">
+            <p className="mt-5 max-w-[54ch] text-base leading-relaxed text-ink/60 sm:mt-7 sm:text-lg">
               In 90 minutes, see how clinic owners package the care they already deliver into outcome-based programs
               that patients commit to upfront. No new modalities, no new certifications.
             </p>
 
-            <dl className="mt-8  mb-4.5 flex flex-wrap gap-3 text-sm">
+            {/* Mobile only: a button on the first screen, with date and countdown under it */}
+            <div id="hero-cta" className="mt-6 lg:hidden">
+              <SaveSeatButton className="w-full sm:w-auto" />
+              <p className="mt-3 text-center text-[13px] text-ink/55 sm:text-left md:hidden">
+                {EVENT.dateLabel}, {EVENT.timeLabel}. Starts in <Countdown size="inline" />
+              </p>
+            </div>
+
+            {/* Date pills: tablet and laptop only (mobile shows the line above instead) */}
+            <dl className="mb-4.5 mt-8 hidden flex-wrap gap-3 text-sm md:flex">
               <div className="glass flex items-center gap-2.5 rounded-full px-4 py-2">
                 <CalendarDays className="h-4 w-4 text-ink/60" aria-hidden="true" />
                 <dt className="sr-only">Date</dt>
@@ -116,19 +127,31 @@ export default function OptIn() {
               </div>
             </dl>
 
-            <VideoPlaceholder
-  caption="Watch the full webinar"
-  duration="12:45"
-  coverImage="/images/webinar-cover.png"
-  videoUrl="/videos/dog.mp4"
-/>
-
-
-            <SaveSeatButton mobileOnly className="mt-8 w-full sm:w-auto" />
+            <div className="mt-8 md:mt-0">
+              <VideoPlaceholder
+                caption="Watch the full webinar"
+                duration="12:45"
+                coverImage="/images/webinar-cover.png"
+                videoUrl="/videos/dog.mp4"
+              />
+            </div>
           </section>
 
           {/* FORM: sticky on desktop */}
           <aside className="lg:col-start-2 lg:row-span-2 lg:row-start-1">
+            {/* Mobile only: one line of proof right before the form */}
+            <figure className="mb-5 flex items-start gap-3 px-1 lg:hidden">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ink text-[11px] font-semibold text-canvas">
+                {PROOF.initials}
+              </span>
+              <div>
+                <blockquote className="text-[15px] leading-snug text-ink/80">“{PROOF.quote}”</blockquote>
+                <figcaption className="mt-1.5 text-xs text-ink/45">
+                  {PROOF.name}, {PROOF.role}
+                </figcaption>
+              </div>
+            </figure>
+
             <div className="lg:sticky lg:top-8">
               <Form />
             </div>
@@ -201,20 +224,14 @@ export default function OptIn() {
               >
                 HN
               </div>
-            
-<div>
-  <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">
-    Your host: Dr. [Name]
-  </h2>
-  <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink/55">
-    Dr. [Name] is a [chiropractor] and the owner of [Clinic Name] in
-    [City]. After [10] years of fighting insurance reimbursements,
-    [she] moved [her] clinic to cash-based care programs and never
-    looked back. On this training, [she] will show you the exact
-    model [she] uses.
-  </p>
-</div>
-
+              <div>
+                <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">Your host: Dr. [Name]</h2>
+                <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink/55">
+                  Dr. [Name] is a [chiropractor] and the owner of [Clinic Name] in [City]. After [10] years of fighting
+                  insurance reimbursements, [she] moved [her] clinic to cash-based care programs and never looked back.
+                  On this training, [she] will show you the exact model [she] uses.
+                </p>
+              </div>
             </section>
 
             <section>
@@ -260,6 +277,7 @@ export default function OptIn() {
       </main>
 
       <Footer />
+      <StickyCTA />
     </div>
   );
 }

@@ -23,7 +23,7 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const PHONE_PATTERN = /^[+()\-.\s\d]{7,20}$/;
 
 const fieldClass = (hasError: boolean) =>
-  `glass-field block w-full rounded-2xl px-4 py-3.5 text-[15px] text-ink placeholder:text-ink/30 transition-[border-color,background-color,box-shadow] focus:bg-ink/[0.07] focus:outline-none focus:ring-4 ${
+    `glass-field block w-full rounded-2xl px-4 py-3.5 text-base text-ink lg:text-[15px] placeholder:text-ink/30 transition-[border-color,background-color,box-shadow] focus:bg-ink/[0.07] focus:outline-none focus:ring-4 ${
     hasError
       ? '!border-danger/70 focus:ring-danger/15'
       : 'hover:border-ink/20 focus:border-ink/45 focus:ring-ink/10'

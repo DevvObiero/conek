@@ -19,7 +19,8 @@ const pad = (n: number) => String(n).padStart(2, '0');
 type CountdownProps = {
   /** Defaults to Wed Nov 4, 2026, 9:00 PM ET. */
   target?: Date;
-  size?: 'sm' | 'lg';
+  /** sm: header tiles, lg: confirmation tiles, inline: one line of text (mobile hero + sticky bar) */
+  size?: 'sm' | 'lg' | 'inline';
   className?: string;
 };
 
@@ -38,6 +39,7 @@ export default function Countdown({ target = EVENT.start, size = 'sm', className
   }, [targetMs]);
 
   if (time.total === 0) {
+    if (size === 'inline') return <span className={`font-semibold text-ink ${className}`}>live now</span>;
     return (
       <p className={`text-base font-medium text-ink ${className}`}>
         The training is live now. Check your email for the join link.
@@ -51,6 +53,19 @@ export default function Countdown({ target = EVENT.start, size = 'sm', className
     { label: 'Minutes', short: 'm', value: pad(time.minutes) },
     { label: 'Seconds', short: 's', value: pad(time.seconds) },
   ];
+
+  if (size === 'inline') {
+    return (
+      <span className={`whitespace-nowrap font-semibold tabular-nums text-ink ${className}`}>
+        <span className="sr-only">
+          {time.days} days, {time.hours} hours and {time.minutes} minutes
+        </span>
+        <span aria-hidden="true">
+          {units.map((u) => `${u.value}${u.short}`).join(' ')}
+        </span>
+      </span>
+    );
+  }
 
   const lg = size === 'lg';
 
