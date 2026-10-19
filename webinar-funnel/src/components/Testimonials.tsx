@@ -33,17 +33,17 @@ export const TESTIMONIALS: Testimonial[] = [
 function TestimonialCard({ quote, name, role, initials }: Testimonial) {
   return (
     <figure className="glass flex h-full flex-col rounded-[1.75rem] p-6 sm:p-7">
-      <span className="text-4xl font-semibold leading-none text-white/25" aria-hidden="true">
+      <span className="text-4xl font-semibold leading-none text-ink/25" aria-hidden="true">
         “
       </span>
-      <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-white/80">{quote}</blockquote>
-      <figcaption className="mt-6 flex items-center gap-3 border-t border-white/10 pt-5">
-        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-white text-xs font-semibold text-black">
+      <blockquote className="mt-3 flex-1 text-[15px] leading-relaxed text-ink/80">{quote}</blockquote>
+      <figcaption className="mt-6 flex items-center gap-3 border-t border-ink/10 pt-5">
+        <span className="flex h-10 w-10 items-center justify-center rounded-full bg-ink text-xs font-semibold text-canvas">
           {initials}
         </span>
         <span>
-          <span className="block text-sm font-medium text-white">{name}</span>
-          <span className="block text-xs text-white/45">{role}</span>
+          <span className="block text-sm font-medium text-ink">{name}</span>
+          <span className="block text-xs text-ink/45">{role}</span>
         </span>
       </figcaption>
     </figure>

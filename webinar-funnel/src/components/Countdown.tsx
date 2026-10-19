@@ -39,7 +39,7 @@ export default function Countdown({ target = EVENT.start, size = 'sm', className
 
   if (time.total === 0) {
     return (
-      <p className={`text-base font-medium text-white ${className}`}>
+      <p className={`text-base font-medium text-ink ${className}`}>
         The training is live now. Check your email for the join link.
       </p>
     );
@@ -68,13 +68,13 @@ export default function Countdown({ target = EVENT.start, size = 'sm', className
             }`}
           >
             <span
-              className={`font-semibold leading-none tracking-[-0.04em] text-white tabular-nums ${
+              className={`font-semibold leading-none tracking-[-0.04em] text-ink tabular-nums ${
                 lg ? 'text-3xl sm:text-[2.5rem]' : 'text-lg'
               }`}
             >
               {u.value}
             </span>
-            <span className={`text-white/45 ${lg ? 'mt-2 text-xs' : 'mt-0.5 text-[10px]'}`}>
+            <span className={`text-ink/45 ${lg ? 'mt-2 text-xs' : 'mt-0.5 text-[10px]'}`}>
               {lg ? u.label : u.short}
             </span>
           </div>

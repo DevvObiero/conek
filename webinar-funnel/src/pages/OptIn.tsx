@@ -1,5 +1,6 @@
 import { CalendarDays, Clock, Check, X, Layers, BadgeDollarSign, Users } from 'lucide-react';
 import Brand from '../components/Brand';
+import ThemeToggle from '../components/ThemeToggle';
 import Countdown from '../components/Countdown';
 import Form from '../components/Form';
 import SaveSeatButton from '../components/SaveSeatButton';
@@ -59,7 +60,7 @@ const FAQS = [
   },
 ];
 
-const h2 = 'text-3xl font-semibold tracking-[-0.035em] text-white sm:text-[2.5rem] sm:leading-[1.1]';
+const h2 = 'text-3xl font-semibold tracking-[-0.035em] text-ink sm:text-[2.5rem] sm:leading-[1.1]';
 
 export default function OptIn() {
   return (
@@ -67,10 +68,18 @@ export default function OptIn() {
       {/* Floating glass nav with countdown */}
       <header className="px-4 pt-4 sm:px-6 sm:pt-6">
         <div className="glass-strong mx-auto flex max-w-6xl flex-col gap-4 rounded-[1.75rem] px-5 py-4 sm:px-6 md:flex-row md:items-center md:justify-between md:rounded-full md:py-3 md:pl-6 md:pr-3">
-          <Brand />
+          <div className="flex items-center justify-between gap-4">
+            <Brand />
+            <div className="md:hidden">
+              <ThemeToggle />
+            </div>
+          </div>
           <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
-            <p className="text-[13px] text-white/50">Live training starts in</p>
+            <p className="text-[13px] text-ink/50">Live training starts in</p>
             <Countdown />
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
           </div>
         </div>
       </header>
@@ -80,39 +89,41 @@ export default function OptIn() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_400px] lg:gap-x-14 lg:gap-y-24 xl:gap-x-20">
           {/* HERO */}
           <section className="lg:col-start-1 lg:row-start-1">
-            <p className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] text-white/75">
-              <span className="h-1.5 w-1.5 rounded-full bg-white shadow-[0_0_10px_2px_rgb(255_255_255/0.6)]" aria-hidden="true" />
+            <p className="glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-[13px] text-ink/75">
+              <span className="h-1.5 w-1.5 rounded-full bg-ink shadow-[0_0_10px_2px_var(--glow)]" aria-hidden="true" />
               Free live training for chiropractors and physical therapists
             </p>
 
-            <h1 className="mt-7 max-w-[16ch] text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.05em] text-white sm:text-[4rem] lg:text-[4.75rem]">
+            <h1 className="mt-7 max-w-[16ch] text-[2.75rem] font-semibold leading-[0.98] tracking-[-0.05em] text-ink sm:text-[4rem] lg:text-[4.75rem]">
               Turn your treatments into high-ticket cash programs
             </h1>
 
-            <p className="mt-7 max-w-[54ch] text-lg leading-relaxed text-white/60">
+            <p className="mt-7 max-w-[54ch] text-lg leading-relaxed text-ink/60">
               In 90 minutes, see how clinic owners package the care they already deliver into outcome-based programs
               that patients commit to upfront. No new modalities, no new certifications.
             </p>
 
-            <dl className="mt-8 mb-8 flex flex-wrap gap-3 text-sm">
+            <dl className="mt-8  mb-4.5 flex flex-wrap gap-3 text-sm">
               <div className="glass flex items-center gap-2.5 rounded-full px-4 py-2">
-                <CalendarDays className="h-4 w-4 text-white/60" aria-hidden="true" />
+                <CalendarDays className="h-4 w-4 text-ink/60" aria-hidden="true" />
                 <dt className="sr-only">Date</dt>
-                <dd className="font-medium text-white">{EVENT.dateLabel}</dd>
+                <dd className="font-medium text-ink">{EVENT.dateLabel}</dd>
               </div>
-              <div className="glass flex  items-center gap-2.5 rounded-full px-4 py-2">
-                <Clock className="h-4 w-4 text-white/60" aria-hidden="true" />
+              <div className="glass flex items-center gap-2.5 rounded-full px-4 py-2">
+                <Clock className="h-4 w-4 text-ink/60" aria-hidden="true" />
                 <dt className="sr-only">Time</dt>
-                <dd className="font-medium text-white">9:00 to 10:30 PM ET</dd>
+                <dd className="font-medium text-ink">9:00 to 10:30 PM ET</dd>
               </div>
             </dl>
 
-       <VideoPlaceholder
+            <VideoPlaceholder
   caption="Watch the full webinar"
   duration="12:45"
   coverImage="/images/webinar-cover.png"
   videoUrl="/videos/dog.mp4"
 />
+
+
             <SaveSeatButton mobileOnly className="mt-8 w-full sm:w-auto" />
           </section>
 
@@ -130,12 +141,12 @@ export default function OptIn() {
               <ul className="mt-8 space-y-3">
                 {PAINS.map((p) => (
                   <li key={p} className="glass flex gap-4 rounded-2xl px-5 py-4">
-                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-white" aria-hidden="true" />
-                    <span className="text-base leading-relaxed text-white/85">{p}</span>
+                    <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-ink" aria-hidden="true" />
+                    <span className="text-base leading-relaxed text-ink/85">{p}</span>
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 max-w-[60ch] text-lg leading-relaxed text-white/55">
+              <p className="mt-8 max-w-[60ch] text-lg leading-relaxed text-ink/55">
                 The problem isn’t your clinical skill. It’s that you’re selling care one visit at a time, which invites
                 patients to judge every appointment on its own. Programs change the question from “is this visit worth
                 it?” to “is this result worth it?”
@@ -147,11 +158,11 @@ export default function OptIn() {
               <div className="mt-8 grid gap-4 sm:grid-cols-3">
                 {LESSONS.map(({ icon: Icon, title, body }) => (
                   <div key={title} className="glass rounded-[1.75rem] p-6">
-                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white text-black">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-full bg-ink text-canvas">
                       <Icon className="h-5 w-5" aria-hidden="true" />
                     </span>
-                    <h3 className="mt-6 text-lg font-semibold leading-snug tracking-[-0.02em] text-white">{title}</h3>
-                    <p className="mt-2 text-[15px] leading-relaxed text-white/55">{body}</p>
+                    <h3 className="mt-6 text-lg font-semibold leading-snug tracking-[-0.02em] text-ink">{title}</h3>
+                    <p className="mt-2 text-[15px] leading-relaxed text-ink/55">{body}</p>
                   </div>
                 ))}
               </div>
@@ -160,22 +171,22 @@ export default function OptIn() {
 
             <section className="grid gap-4 sm:grid-cols-2">
               <div className="glass rounded-[1.75rem] p-7">
-                <h2 className="text-xl font-semibold tracking-[-0.02em] text-white">This is for you if</h2>
+                <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">This is for you if</h2>
                 <ul className="mt-5 space-y-3.5">
                   {FOR_YOU.map((t) => (
-                    <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-white/85">
-                      <Check className="mt-0.5 h-5 w-5 shrink-0 text-white" aria-hidden="true" />
+                    <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-ink/85">
+                      <Check className="mt-0.5 h-5 w-5 shrink-0 text-ink" aria-hidden="true" />
                       {t}
                     </li>
                   ))}
                 </ul>
               </div>
-              <div className="rounded-[1.75rem] border border-white/10 p-7">
-                <h2 className="text-xl font-semibold tracking-[-0.02em] text-white/70">It’s not a fit if</h2>
+              <div className="rounded-[1.75rem] border border-ink/10 p-7">
+                <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink/70">It’s not a fit if</h2>
                 <ul className="mt-5 space-y-3.5">
                   {NOT_FOR_YOU.map((t) => (
-                    <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-white/45">
-                      <X className="mt-0.5 h-5 w-5 shrink-0 text-white/30" aria-hidden="true" />
+                    <li key={t} className="flex gap-3 text-[15px] leading-relaxed text-ink/45">
+                      <X className="mt-0.5 h-5 w-5 shrink-0 text-ink/30" aria-hidden="true" />
                       {t}
                     </li>
                   ))}
@@ -185,14 +196,14 @@ export default function OptIn() {
 
             <section className="glass flex flex-col gap-6 rounded-[2rem] p-7 sm:flex-row sm:items-center sm:p-9">
               <div
-                className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-white text-2xl font-semibold tracking-[-0.03em] text-black"
+                className="flex h-24 w-24 shrink-0 items-center justify-center rounded-full bg-ink text-2xl font-semibold tracking-[-0.03em] text-canvas"
                 aria-hidden="true"
               >
                 HN
               </div>
               <div>
-                <h2 className="text-xl font-semibold tracking-[-0.02em] text-white">Your host: Dr. Host Name</h2>
-                <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-white/55">
+                <h2 className="text-xl font-semibold tracking-[-0.02em] text-ink">Your host: Dr. Host Name</h2>
+                <p className="mt-2 max-w-[60ch] text-[15px] leading-relaxed text-ink/55">
                   Replace this with the host’s short bio: years in practice, the clinic they built, and why they moved to
                   program-based care. Two or three sentences is plenty.
                 </p>
@@ -208,34 +219,34 @@ export default function OptIn() {
 
             <section>
               <h2 className={h2}>Questions</h2>
-              <div className="glass mt-8 divide-y divide-white/10 rounded-[1.75rem]">
+              <div className="glass mt-8 divide-y divide-ink/10 rounded-[1.75rem]">
                 {FAQS.map(({ q, a }) => (
                   <details key={q} className="group px-6 py-5 [&_summary::-webkit-details-marker]:hidden">
-                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-white">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium text-ink">
                       {q}
                       <span
-                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-white/15 text-lg leading-none text-white/70 transition-transform group-open:rotate-45"
+                        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full border border-ink/15 text-lg leading-none text-ink/70 transition-transform group-open:rotate-45"
                         aria-hidden="true"
                       >
                         +
                       </span>
                     </summary>
-                    <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-white/55">{a}</p>
+                    <p className="mt-3 max-w-[62ch] text-[15px] leading-relaxed text-ink/55">{a}</p>
                   </details>
                 ))}
               </div>
             </section>
 
             <section className="glass-strong rounded-[2rem] p-8 text-center sm:p-12 lg:text-left">
-              <h2 className="text-3xl font-semibold tracking-[-0.04em] text-white sm:text-[2.75rem] sm:leading-[1.05]">
+              <h2 className="text-3xl font-semibold tracking-[-0.04em] text-ink sm:text-[2.75rem] sm:leading-[1.05]">
                 Your seat is free. Spots on the live call are limited.
               </h2>
-              <p className="mx-auto mt-4 max-w-[52ch] text-lg text-white/55 lg:mx-0">
+              <p className="mx-auto mt-4 max-w-[52ch] text-lg text-ink/55 lg:mx-0">
                 {EVENT.dateLabel} at {EVENT.timeLabel}. Bring one patient case in mind and we’ll build a program around it
                 together.
               </p>
               <SaveSeatButton className="mt-8 w-full sm:w-auto lg:hidden" />
-              <p className="mt-8 hidden text-sm text-white/45 lg:block">Use the form on the right to register.</p>
+              <p className="mt-8 hidden text-sm text-ink/45 lg:block">Use the form on the right to register.</p>
             </section>
           </div>
         </div>

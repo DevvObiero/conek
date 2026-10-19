@@ -66,7 +66,7 @@ export function buildCalendarLinks() {
 }
 
 const btn =
-  'glass flex items-center justify-center gap-2.5 rounded-2xl px-4 py-4 text-sm font-medium text-white transition hover:bg-white/10 active:scale-[0.98]';
+  'glass flex items-center justify-center gap-2.5 rounded-2xl px-4 py-4 text-sm font-medium text-ink transition hover:bg-ink/10 active:scale-[0.98]';
 
 export default function CalendarButtons() {
   const links = useMemo(buildCalendarLinks, []);
@@ -74,15 +74,15 @@ export default function CalendarButtons() {
   return (
     <div className="grid gap-3 sm:grid-cols-3">
       <a href={links.google} target="_blank" rel="noopener noreferrer" className={btn}>
-        <CalendarPlus className="h-4 w-4 text-white/70" aria-hidden="true" />
+        <CalendarPlus className="h-4 w-4 text-ink/70" aria-hidden="true" />
         Google Calendar
       </a>
       <a href={links.outlook} target="_blank" rel="noopener noreferrer" className={btn}>
-        <Mail className="h-4 w-4 text-white/70" aria-hidden="true" />
+        <Mail className="h-4 w-4 text-ink/70" aria-hidden="true" />
         Outlook
       </a>
       <a href={links.apple} download="free-training-nov-4.ics" className={btn}>
-        <Apple className="h-4 w-4 text-white/70" aria-hidden="true" />
+        <Apple className="h-4 w-4 text-ink/70" aria-hidden="true" />
         Apple Calendar
       </a>
     </div>
